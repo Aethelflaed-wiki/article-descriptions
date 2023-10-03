@@ -12,7 +12,6 @@ def create_csv_file(data):
 
     return {"qid":[], "Dfr":[]}
 
-i = 0
 data = {"qid":[], "Dfr":[]}
 for line in bz2.BZ2File("latest-all.json.bz2", "r"):
     try:
@@ -22,7 +21,6 @@ for line in bz2.BZ2File("latest-all.json.bz2", "r"):
             if js["type"] == "item":
                 if "P31" in js["claims"]:
                     if js["claims"]["P31"][0]["mainsnak"]["datavalue"]["value"]["id"] == "Q13442814": # Is a scholarly article
-                        print(i)
                         if "fr" not in js["descriptions"]:
                             if "P577" in js["claims"]: # Date of publication exists
                                 if js["claims"]["P577"][0]["mainsnak"]["datavalue"]["value"]["precision"] >= 9:
@@ -39,7 +37,6 @@ for line in bz2.BZ2File("latest-all.json.bz2", "r"):
                                 data = create_csv_file(data)
 
 
-        i += 1
     except Exception as e:
         pass
 
